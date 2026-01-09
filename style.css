@@ -1,0 +1,9 @@
+.card {
+    width: 500px;
+    height: 250px;
+    border: 4px solid black;
+}
+
+.cc {
+    background-color: pink;
+}
