@@ -1,6 +1,5 @@
-const myLibrary = [];
-
-function Book(ten,tacgia,namxuatban,theloai) {
+class Book {
+  constructor (ten,tacgia,namxuatban,theloai) {
     this.ten = ten;
     this.tacgia = tacgia;
     this.namxuatban = namxuatban;
@@ -9,85 +8,74 @@ function Book(ten,tacgia,namxuatban,theloai) {
     this.state = function(trangthai) {
       this.state= trangthai;
     }
+  }
+
+  addBookToLibrary(sach) {
+    myLibrary.push(sach)
+  }
+
 }
 
-function addBookToLibrary(sach) {
-  myLibrary.push(sach);
+class Layout {
+  taoKhung () {
+  let div = document.createElement('div')
+  div.classList.add('card')
+  return {div}
 }
 
-let cc = new Book('toan','vu','2025','giaoduc')
-let ccc = new Book('nguvan','vu','2025','giaoduc')
-addBookToLibrary(cc)
-addBookToLibrary(ccc)
+  taoNutChucNang (sachCanXoa,doiTuong) {
+  let xoa = document.createElement('button')
+  xoa.textContent='XOA SACH'
+  xoa.addEventListener('click',() => {
+  bodyy.removeChild(sachCanXoa)
+  })
+  let readed = document.createElement('button')
+  readed.textContent='DA DOC SACH'
+  readed.addEventListener('click',() => {
+    let daDoc = document.querySelector('.daDoc')
+    daDoc.textContent = 'TRANG THAI: DA DOC'
+  })
+  return {xoa,readed}
+}
 
-
-let bodyy = document.querySelector('.bodyy');
-
-
-
-function Them (arr) {
-  arr
-  .map((val) => {
-    Object.setPrototypeOf(val,Book)
-    let xoa = document.createElement('button')
-    xoa.textContent='xoa'
-    let readed = document.createElement('button')
-    readed.textContent='da doc'
-    let div = document.createElement('div')
-    div.classList.add('card')
-    bodyy.appendChild(div)
-   for (pt in val) {
-    if (pt != 'state') {
-    let ok = document.createElement('p')
-    ok.textContent = `${pt}: ${val[pt]}`;
-    div.appendChild(ok);}
-    else if (pt == 'state') {
-    let ok = document.createElement('p')
-    ok.textContent = `${pt}: none`;
-    div.appendChild(ok);
-     readed.addEventListener('click',()=>{
-      let chay = new Book()
-      chay.state('doc roi')
-      let thay = document.createElement('p')
-      thay.textContent = `${pt}: ${chay.state}`
-      console.log(chay.state)
-      div.replaceChild(thay,ok)
-    })
+  themThongTinSach(doiTuong,obj) {
+  for (let thuocTinh in doiTuong) {
+    if (thuocTinh != 'state') {
+      let text = document.createElement('p')
+      text.textContent = `${thuocTinh}: ${doiTuong[thuocTinh]}`
+      obj.appendChild(text)
+    }
+    else if (thuocTinh == 'state') {
+      let text = document.createElement('p')
+      text.textContent = `${thuocTinh}: CHUA DOC`
+      obj.appendChild(text)
+      text.classList.add('daDoc')
     }
   }
-    div.appendChild(xoa)
-    xoa.addEventListener('click',()=> {
-      bodyy.removeChild(div)
-    })
-    div.appendChild(readed)
-  })
-    console.log(myLibrary)
-
 }
-
-Them(myLibrary)
-
+}
+const myLibrary = []
+const bodyy = document.querySelector('.bodyy');
 let dialog = document.querySelector('dialog')
-let taomoi = document.querySelector('.taomoi')
-let ten = document.querySelector('#ten')
-let tacgia = document.querySelector('#tacgia')
-let namxuatban = document.querySelector('#namxuatban')
-let theloai = document.querySelector('#theloai')
-
-
-
-taomoi.addEventListener('click',() => {
+let taoMoi = document.querySelector('.taomoi')
+let tenSach = document.querySelector('#ten')
+let tacGia = document.querySelector('#tacgia')
+let namXuatBan = document.querySelector('#namxuatban')
+let theLoai = document.querySelector('#theloai')
+let gui = document.querySelector('#gui')
+taoMoi.addEventListener('click',() => {
   dialog.showModal()
 })
 
-let gui = document.querySelector('#gui')
 gui.addEventListener('click',() => {
   event.preventDefault()
-  let cc = new Book(`${ten.value}`,`${tacgia.value}`,`${namxuatban.value}`,`${theloai.value}`)
-  addBookToLibrary(cc)
-  Them(myLibrary)
+  let taoSach = new Book(`${ten.value}`,`${tacgia.value}`,`${namxuatban.value}`,`${theloai.value}`)
+  taoSach.addBookToLibrary(taoSach)
+  let taoGiaoDien = new Layout
+  let khung = taoGiaoDien.taoKhung().div
+  bodyy.appendChild(khung)
+  taoGiaoDien.themThongTinSach(taoSach,khung)
+  khung.appendChild(taoGiaoDien.taoNutChucNang(khung,taoSach).readed)
+  khung.appendChild(taoGiaoDien.taoNutChucNang(khung,taoSach).xoa)
   dialog.close()
 })
-
-
-
