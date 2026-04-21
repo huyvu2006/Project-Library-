@@ -32,11 +32,39 @@
 }
 
 .navigation h3:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .book-form {
-    font-family: "Montserrat", system-ui;
-    margin-top: 200px;
-    
+  font-family: "Montserrat", system-ui;
+  margin-top: 120px;
+  width: 200px;
+  height: 150px;
+}
+
+.main {
+  width: 100vw;
+  height: auto;
+  border: 2px solid yellow;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.book-card {
+  width: 250px;
+  height: 150px;
+  border: 2px solid black;
+  font-family: "Montserrat", system-ui;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.delete {
+  width: 60px;
+  height: auto;
+  border: 0;
+  background-color: red;
+  font-family: "Montserrat", system-ui;
 }
