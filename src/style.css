@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  width: 100vw;
+  height: 40px;
+  border: 2px solid black;
+  display: flex;
+  gap: 10px;
+  font-family: "Montserrat", system-ui;
+}
+
+.book-icon {
+  width: 40px;
+  height: auto;
+  align-self: flex-start;
+}
+
+.navigation {
+  width: 100vw;
+  height: 60px;
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+}
+
+.navigation h3 {
+  font-size: 1.5rem;
+  font-family: "Montserrat", system-ui;
+}
+
+.navigation h3:hover {
+    cursor: pointer;
+}
+
+.book-form {
+    font-family: "Montserrat", system-ui;
+    margin-top: 200px;
+    
+}
