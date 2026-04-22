@@ -1,9 +1,9 @@
 import { getBookData, myLibrary } from "./data";
 
-let author = document.querySelector("#author");
-let title = document.querySelector("#title");
-let pages = document.querySelector("#pages");
-let bookForm = document.querySelector(".book-form");
+let author = document.querySelector("#author"),
+  title = document.querySelector("#title"),
+  pages = document.querySelector("#pages"),
+  bookForm = document.querySelector(".book-form");
 
 let addBook = document.querySelector(".add-book");
 addBook.addEventListener("click", () => {
@@ -22,43 +22,48 @@ submit.addEventListener("click", (ev) => {
 let main = document.querySelector(".main");
 
 function createBookCard(obj) {
-  let div = document.createElement("div");
-  div.classList.add("book-card");
-  div.classList.add(`${obj.id}`);
-  let author = document.createElement("p");
-  author.textContent = `Author: ${obj.author}`;
-  let title = document.createElement("p");
-  title.textContent = `Title: ${obj.title}`;
-  let pages = document.createElement("p");
-  pages.textContent = `Number Of Pages: ${obj.pages}`;
-  let rm = document.createElement("button");
-  rm.textContent = "DELETE";
-  rm.classList.add("delete");
-  let arr = [author, title, pages, rm];
-  rm.addEventListener("click", () => {
-    id.splice(0);
-    id.push(obj.id);
+  const div = document.createElement("div");
+  div.className = `book-card ${obj.id}`;
+
+  div.innerHTML = `
+    <p>Author: ${obj.author}</p>
+    <p>Title: ${obj.title}</p>
+    <p>Number Of Pages: ${obj.pages}</p>
+    <p> State: </p>
+    <button class="delete">DELETE</button>
+    <button class="read"> Read </button>
+  `;
+
+  div.querySelector(".delete").addEventListener("click", () => {
+    ids.splice(0, ids.length, obj.id);
     removeCard(obj.id, myLibrary);
-    let div = document.querySelector(`[class*="${obj.id}"]`);
-    main.removeChild(div);
+    div.remove();
   });
-  arr.forEach((val) => {
-    div.appendChild(val);
+
+  div.querySelector(".read").addEventListener("click", () => {
+    obj.state = "readed";
+    div.innerHTML = `
+    <p>Author: ${obj.author}</p>
+    <p>Title: ${obj.title}</p>
+    <p>Number Of Pages: ${obj.pages}</p>
+    <p> State: ${obj.state}</p>
+    <button class="delete">DELETE</button>
+    <button class="read"> Read </button>
+  `;
+    console.log(obj);
   });
+
   main.appendChild(div);
 }
 
-let id = [];
+let ids = [];
 
 let rm = document.querySelector(".delete");
 
 function removeCard(id, arr) {
-  for (let item of arr) {
-    if (item.id == id) {
-      let index = arr.indexOf(item);
-
-      arr.splice(index, 1);
-    }
+  const index = arr.findIndex((item) => item.id === id);
+  if (index !== -1) {
+    arr.splice(index, 1);
   }
 }
 
